@@ -1,0 +1,44 @@
+注意：使用lirc软件包进行操作时，注意软件版本，不同的软件版本包，配置的时候不太一样。
+以下方法在2023.07.13年有效。若发现配置有问题，需到官网寻求帮助https://www.lirc.org/
+
+1、sudo apt-get update -y //更新，昨天更新了，今天会快点
+2、sudo apt-get upgrade -y
+3、sudo apt-get install lirc -y
+     装完后，用lircd --version ,查看红外的版本号
+                  用 uname -a 查看系统版本
+4、设置红外接收管脚为4：
+     打开配置文件：sudo vim /boot/config.txt 
+     打开注释：dtoverlay=gpio-ir,gpio_pin=4
+5、配置lirc硬件接口：
+     打开配置文件： sudo vim /etc/lirc/lirc_options.conf 
+     打开注释：driver=default
+                     device=/dev/lirc0
+     重启树莓派：sudo reboot
+6、查看红外的状态：sudo /etc/init.d/lircd status  
+7、接收红外信号测试：
+     开启红外接收：mode2 -d /dev/lirc0 
+     然后按下遥控器中的任意键：终端有数据产生，则说明连接成功
+     停止lircd服务：sudo service lircd stop  
+8、按键录制
+     停止lircd服务：sudo /etc/init.d/lircd stop 
+     查看已有键名列表：irrecord --list-namespace
+     开始录制：irrecord -d /dev/lirc0 ~/lircd.conf
+     回车1、回车2、给录制文件起名字“motor”、回车、所有键按来按去录满一行小点。然后真正录你需要的键：先输入按键名（名字来源与
+     键名列表），然后按下对应按键。之后在录制下一个按键。录完回车、再回车，提示success即可。
+     在家目录下会发现有motor.lircd.conf文件出现。
+9、将motor.lircd.conf文件拷贝到/etc/lirc/目录下，把原有的lircd.conf改名成lircd.conf.dist（留存），接着把motor.lircd.conf正名为lircd.conf
+     sudo cp ~/motor.lircd.conf /etc/lirc/
+     sudo mv lircd.conf lircd.conf.dist
+     sudo mv motor.lircd.conf lircd.conf
+     同时需要将第二列数字删除。
+10、将irexec.lircrc改名为lircrc   
+        sudo mv irexec.lircrc lircrc
+        sudo vim lircrc编辑其内容，响应你录制的按键，如下，检测到KEY_PREVIOUS按键时，响应并输出“put previous”。
+              比如：
+       	begin
+                    prog   = irexec
+        	    button = KEY_PREVIOUS
+        	    config = echo "put previous"
+   	 end
+11、重启服务sudo service lircd restart
+      运行命令irexec, 按下KEY_PREVIOUS，就会得到“put previous”的提示
