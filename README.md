@@ -16,9 +16,6 @@ Raspberry Pi-based Intelligent Car
    ```
    git clone https://github.com/WiringPi/WiringPi.git
    ```
-   
-   
-   
 
 1.2 然后进入到克隆下来的WiringPi目录：
   ```
@@ -73,11 +70,17 @@ make all 和 sudo make install
 3.1 更新并安装LIRC: 使用命令 ```sudo apt-get update -y ```和 ```sudo apt-get upgrade -y ```更新系统，然后使用命令 ```sudo apt-get install lirc -y``` 安装LIRC。
 
 3.2 设置红外接收管脚: 编辑 ```/boot/config.txt``` 文件，将 dtoverlay=gpio-ir,gpio_pin=4 这一行取消注释，设置红外接收器的GPIO脚为4。
+
 3.3 配置LIRC硬件接口: 编辑 ```/etc/lirc/lirc_options.conf```文件，将 driver=default 和 device=/dev/lirc0 这两行取消注释。然后重启树莓派。
+
 3.4 测试红外接收: 使用命令 ```mode2 -d /dev/lirc0``` 来测试红外接收，如果按下遥控器按钮终端有数据产生，说明连接成功。
+
 3.5 录制红外按键信号: 首先，停止LIRC服务，然后使用命令 ```irrecord -d /dev/lirc0 ~/lircd.conf``` 来开始录制红外信号。按照提示进行操作，录制所有需要的按键。
+
 3.6 配置录制的按键: 将录制的文件复制到 ```/etc/lirc/ ```目录下，并将原有的 lircd.conf 文件改名为 lircd.conf.dist，将新的配置文件命名为 lircd.conf。编辑该文件，将每个按键的配置设置好。
+
 3.7 设置按键的响应操作: 编辑 lircrc 文件，设置每个按键的响应操作。例如，当接收到 KEY_PREVIOUS 按键信号时，执行 echo "put previous" 操作。
+
 3.8 重启LIRC服务: 使用命令 ```sudo service lircd restart``` 重启LIRC服务。
 
 以上步骤完成之后，你应该可以通过红外接收器接收并解析遥控器的按键信号，然后执行相应的操作。
@@ -232,3 +235,4 @@ WI-FI控制上位機（小R科技WIFIRobotV2.1）
         //运行小车程序
         sudo ./car 2002
         ```
+        
