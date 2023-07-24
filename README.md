@@ -8,7 +8,7 @@ Raspberry Pi-based Intelligent Car
 ## 目录
 
 - [环境配置](#环境配置)
-  - [安装wiringPi库](#1-安装wiringPi库)
+  - [安装wiringPi库](#1-安装wiringpi库)
   - [配置网络摄像头](#2-配置網絡攝像頭)
   - [红外配置](#3-紅外配置)
 - [安装指南](#安装指南)
