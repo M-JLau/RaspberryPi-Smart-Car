@@ -1,0 +1,57 @@
+# Please take the time to finish this file as described in
+# https://sourceforge.net/p/lirc-remotes/wiki/Checklist/
+# and make it available to others by sending it to
+# <lirc@bartelmus.de>
+#
+# This config file was automatically generated
+# using lirc-0.10.1(default) on Thu Jul  7 16:50:10 2022
+# Command line used: -d /dev/lirc1 /home/pi/lircd.config
+# Kernel version (uname -r): 5.10.103-v7+
+#
+# Remote name (as of config file): lir
+# Brand of remote device, the thing you hold in your hand:
+# Remote device model nr:
+# Remote device info url:
+# Does remote device has a bundled capture device e. g., a
+#     usb dongle? :
+# For bundled USB devices: usb vendor id, product id
+#     and device string (use dmesg or lsusb):
+# Type of device controlled
+#     (TV, VCR, Audio, DVD, Satellite, Cable, HTPC, ...) :
+# Device(s) controlled by this remote:
+
+begin remote
+
+  name  lir
+  bits           32
+  flags SPACE_ENC|CONST_LENGTH
+  eps            30
+  aeps          100
+
+  header       9111  4532
+  one           586  1669
+  zero          586   554
+  ptrail        589
+  repeat       9116  2247
+  gap          134751
+  toggle_bit_mask 0x0
+  frequency    38000
+
+      begin codes
+          KEY_0                    0x00FF6897 
+          KEY_1                    0x00FF30CF 
+          KEY_2                    0x00FF18E7 
+          KEY_3                    0x00FF7A85 
+          KEY_4                    0x00FF10EF 
+          KEY_5                    0x00FF38C7 
+          KEY_6                    0x00FF5AA5 
+          KEY_7                    0x00FF42BD 
+          KEY_8                    0x00FF4AB5 
+          KEY_9                    0x00FF52AD 
+          KEY_A                    0x00FF22DD 
+          KEY_B                    0x00FF02FD 
+          KEY_AUDIO                0x00FFA857 
+          KEY_AUDIO_DESC           0x00FFE01F
+      end codes
+
+end remote
