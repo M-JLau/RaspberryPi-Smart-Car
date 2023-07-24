@@ -92,12 +92,17 @@ make all 和 sudo make install
 ## 安装指南
 
 此项目需要树莓派和其他一些硬件设备:
+
 超聲波模塊HC-SR04、舵機SG90
 
 关于软件部分，你需要安装以下软件:
+
 FinalShell
+
 VNC Viewer
+
 WI-FI控制上位機（小R科技WIFIRobotV2.1）
+
 
 ## 功能描述和使用方法
 
